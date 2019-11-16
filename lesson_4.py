@@ -102,4 +102,16 @@ else:
 
 #9
 
+sentence = input("Please enter your sentence: ")
+word = input("Please enter the word to count: ")
+sentence = sentence.lower()
+result = sentence.split()
+word = word.lower()
+print("The number of word '{}' in the sentence is: {}".format(word,sentence.count(word)))
+
 #10
+
+sentence = input("Please enter your sentence: ")
+splitting = sentence.split()
+splitting = list(dict.fromkeys(splitting))
+print(" ".join(splitting))
