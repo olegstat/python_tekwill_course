@@ -47,7 +47,7 @@ for x,y in last_time.items():
     if y == maximum:
         print('Last Accessed File:', x)
 
-#exercises part 2 (file i/o)
+#4,5,6,7
 
 import os
 
@@ -63,7 +63,7 @@ with open('exercise.txt', 'w+') as f:
 with open('exercise.txt') as f:
     content = f.read()
     f.close()
-with open('exercise_copy.txt', 'w') as f:
+with open('exercise_copy.txt', 'w+') as f:
     f.write(content)
     f.close()
 
