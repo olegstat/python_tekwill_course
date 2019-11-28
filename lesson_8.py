@@ -55,7 +55,6 @@ os.mkdir('my_new_folder')
 os.chdir('my_new_folder')
 
 with open('exercise.txt', 'w+') as f:
-    #age = input("Please enter your age: ")
     f.write(f'Age: {input("Please enter your age: ")}\n')
     f.write(f'Occupation: {input("Please enter your occupation: ")}\n')
     f.write(f'Height: {input("Please enter your height: ")}\n')
@@ -67,3 +66,50 @@ with open('exercise_copy.txt', 'w+') as f:
     f.write(content)
     f.close()
 
+    #8
+
+def line_count(file):
+    lines = 0
+    with open(file, 'r') as f:
+        for a in enumerate(f):
+            lines += 1
+        f.close()
+    return lines
+output = line_count('test.txt')
+print(output)
+
+#9
+
+def word_count(file, word):
+    with open(file, 'r') as f:
+        text = f.read()
+        counting = text.count(word)
+        return counting
+        f.close()
+output = word_count('test.txt', 'line')
+print(output)
+
+#10
+
+def add_content(file, content):
+    with open(file, 'a') as f:
+        f.seek(0, 2)
+        content = content + '\n'
+        f.write(content)
+        f.close()
+add_content('test2.txt', 'newline')
+
+#11
+
+def del_file(file, content):
+    with open(file, 'r+') as f:
+        lines = f.readlines()
+        f.seek(0)
+        f.close()
+    with open(file, 'w') as f:
+        content = content + '\n'
+        for var in lines:
+            if var != content:
+                f.write(var)
+        f.close()
+del_file('test2.txt', 'newline3')
