@@ -118,19 +118,20 @@ del_file('test2.txt', 'newline3')
 
 def game():
     import random
+
+    #Reading and editing the list from countries.txt
     c_list = []
     with open('countries.txt', 'r', encoding='utf8') as f:
-        for i in f:
+        for i in f:p
             c_list.append(i[:-1])
         f.close()
     c_list[0] = c_list[0][1:]
-
     c_list_split = []
     for i in c_list:
         c_list_split.append(i.split(','))
-
     c_dict = dict(c_list_split)
 
+    #Selecting the random country, city and 3 other cities
     c_country, c_city = random.choice(list(c_dict.items()))
     capitals = []
     capitals.append(c_city)
@@ -140,9 +141,9 @@ def game():
         count +=1
     random.shuffle(capitals)
 
+    #The game
     print("Guess the capital of {}:\n1. {}\n2. {}\n3. {}\n4. {}".format(c_country,capitals[0],capitals[1],capitals[2],capitals[3]))
     answer = input("Your answer is: ")
-
     while answer not in capitals:
         answer = input("You should type one of the given answers. Please type EXIT for exit the game, or try again: ")
         if answer == "EXIT":
@@ -154,7 +155,8 @@ def game():
             exit()
         else:
             print("Wrong answer. The correct answer is {}.".format(c_city))
-
+            
+#New game option
 new_game = "YES"
 while new_game == "YES":
     game()
