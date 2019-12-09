@@ -61,16 +61,29 @@ import datetime
 
 #Zoo classes
 class Zoo():
+    animal_list = []
     def __init__(self, name, age, a_class, food):
         self.name = name
         self.age = age
         self.a_class = a_class
         self.food = food
+        self.animal_list.append(self.__dict__)
+        print(f"Animal {self.name} added to the list")
     def fav_food(self):
         return f"Favourite food is: {self.food}"
     @classmethod
     def age_by_date(cls, date):
         cls.age = datetime.datetime.now() - date
+    @classmethod
+    def db_search(cls, i):
+        result = []
+        for var in cls.animal_list:
+            if var['a_class'] == i:
+                result.append(var)
+        if result != []:
+            print(f"The list of {var['a_class']}s is:", result)
+        else:
+            print(f'There are no animals of  type {i} in the list!')
 class Mammal(Zoo):
     def __init__(self, name, age, food="Grass", a_class="Mammal"):
         super().__init__(name, age, a_class, food)
@@ -90,29 +103,10 @@ class Reptile(Zoo):
     def change_tail(self, new_tail):
         self.tail = new_tail
 
-#Adding the animal object in the list of animals
-animals=[]
-def db_add(i):
-    animals.append(i.__dict__)
-    print(f"Animal {i.name} added to the list")
-
-#Showing all the animals of a searched type from the list of animals
-result = []
-def db_search(i):
-    for var in animals:
-         if var['a_class'] == i:
-            result.append(var)
-    if result != []:
-        print(f"The list of {var['a_class']}s is:", result)
-    else:
-        print(f'There are no animals of  type {i} in the list!')
-
 #Creating animal objects and adding them in list
 animal_1 = Mammal("Foxie", 7)
-db_add(animal_1)
 animal_2 = Reptile("Felix", 2, 13, 'green')
-db_add(animal_2)
 animal_3 = Mammal("Harlie", 16)
-db_add(animal_3)
+
 #Searching of all the animals of a class
-db_search("Mammal")
+Zoo.db_search("Mammal")
