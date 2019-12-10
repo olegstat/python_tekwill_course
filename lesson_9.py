@@ -84,6 +84,9 @@ class Zoo():
             print(f"The list of {var['a_class']}s is:", result)
         else:
             print(f'There are no animals of  type {i} in the list!')
+    @classmethod
+    def db_count(cls):
+        print("Total number of animals in the zoo is: ", len(cls.animal_list))
 class Mammal(Zoo):
     def __init__(self, name, age, food="Grass", a_class="Mammal"):
         super().__init__(name, age, a_class, food)
@@ -110,3 +113,4 @@ animal_3 = Mammal("Harlie", 16)
 
 #Searching of all the animals of a class
 Zoo.db_search("Mammal")
+Zoo.db_count()
