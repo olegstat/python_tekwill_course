@@ -1,9 +1,8 @@
 #1
 
-from datetime import date, timedelta
-
-d = date(2019,10,29)
-end_date = date + timedelta(weeks=15, days=8)
+import datetime
+d = datetime.date(2019,10,29)
+end_date = d + datetime.timedelta(weeks=15) + datetime.timedelta(days=8)
 print(end_date)
 
 #2
