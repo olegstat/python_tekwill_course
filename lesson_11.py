@@ -35,3 +35,41 @@ sum_one_million()
 
 #3
 
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(func.__name__)
+        print(func(*args, **kwargs))
+    return wrapper
+
+#4
+
+import time
+
+def repeat(n, x):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for i in range(n):
+                func(*args, **kwargs)
+                time.sleep(x)
+        return wrapper
+    return decorator
+
+@repeat(2, 1)
+def f():
+    print("hi")
+f()
+
+#5
+
+def zero_division_decorator(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except ZeroDivisionError:
+            print("Division by 0 is not allowed")
+    return wrapper
+
+
+@zero_division_decorator
+def divisor_function(number, divisor):
+    return number / divisor
