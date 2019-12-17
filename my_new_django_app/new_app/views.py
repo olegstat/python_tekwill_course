@@ -9,7 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def my_first_view(request):
-    print("hello")
     return HttpResponse("Hello world!")
 
 def date_time(request):
