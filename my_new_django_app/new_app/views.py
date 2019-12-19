@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest, FileResponse
+from django.http import HttpResponse, HttpRequest, FileResponse, JsonResponse, StreamingHttpResponse
 from datetime import date, datetime
 import random
+from time import sleep
+from time import ctime
 import os, sys
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
@@ -59,4 +61,51 @@ def file_saver(request):
     fs.save(file.name, file)
     #returning file content as response
     return FileResponse(open('test.txt', 'rb'))
+
+def special_case_2003(request):
+    print('2003')
+    return HttpResponse("Year is 2003")
+
+def year_archive(request, year):
+    print(year)
+    return HttpResponse(f"Year is {year}")
+
+def month_archive(request, year, month):
+    print(year, month)
+    return HttpResponse(f'Year is {year}, Month is {month}')
+
+def article_detail(request, year, month, slug):
+    print(year, month, slug)
+    return HttpResponse(f'Year is {year}, Month is {month}, Slug is {slug}')
+
+def cat_image_view(request):
+    return FileResponse(open('cat.jpg', 'rb'))
+
+def json_view(request):
+    return JsonResponse({'data': 'value'})
+
+def streaming_writer(rows):
+    for row in range(rows):
+        yield (f'{row} ')
+        sleep(0.5)
+
+def streaming_view(request):
+    return StreamingHttpResponse(streaming_writer(100))
+
+#lesson_13_ex_1
+def name_age(request):
+    return JsonResponse({'name': 'Alice', 'age': "22"})
+
+#lesson_13_ex_2
+def time_count(n):
+    while n !=0:
+        time = ctime()
+        yield (f'Current time is: {time} <br>')
+        n -=1
+        sleep(1)
+def current_time(request):
+    return StreamingHttpResponse(time_count(10))
+
+
+
 
