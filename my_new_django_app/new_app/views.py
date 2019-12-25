@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, FileResponse, JsonResponse, StreamingHttpResponse
 from datetime import date, datetime
 import random
@@ -7,6 +7,8 @@ from time import ctime
 import os, sys
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+from .models import BlogPost
+from django.urls import reverse
 
 # Create your views here.
 
@@ -107,5 +109,16 @@ def current_time(request):
     return StreamingHttpResponse(time_count(10))
 
 
+def recent_blog_post(request):
+    top_5_blog_posts = BlogPost.objects.all().order_by('-date')[:5]
+    return render(request, "blog_posts.html", {"recent_blog_post": top_5_blog_posts})
 
+def blog_post_view(request, blog_post_id):
+    blog_post = BlogPost.objects.get(id=blog_post_id)
+    return render(request, 'blog_post_page.html', {'blog_post': blog_post})
 
+def add_blog_post(request):
+    if request.method == 'POST':
+        return render(request, 'add_blog_post.html')
+    blog_post = BlogPost.objects.create(title=request.POST['title'], content=request.POST['content'])
+    return redirect(reverse(recent_blog_post))

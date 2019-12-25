@@ -1,0 +1,8 @@
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Title</label>
+    <input id="title" name='title'>
+    <label for="content">Content</label>
+    <input name='content'>
+    <input type='submit' value='Create'>
+</form>
