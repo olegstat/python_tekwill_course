@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
 from .models import BlogPost
 from django.urls import reverse
+from .forms import BlogPostForm
 
 # Create your views here.
 
@@ -118,7 +119,13 @@ def blog_post_view(request, blog_post_id):
     return render(request, 'blog_post_page.html', {'blog_post': blog_post})
 
 def add_blog_post(request):
-    if request.method == 'POST':
-        return render(request, 'add_blog_post.html')
-    blog_post = BlogPost.objects.create(title=request.POST['title'], content=request.POST['content'])
-    return redirect(reverse(recent_blog_post))
+    if request.method == 'GET':
+        form = BlogPostForm()
+        return render(request, 'add_blog_post.html',{'form': form})
+    form = BlogPostForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect(reverse(recent_blog_post))
+    return render(request, 'add_blog_post.html', {'form': form})
+
+

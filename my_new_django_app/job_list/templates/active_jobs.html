@@ -1,0 +1,14 @@
+<h1>Active Jobs List</h1>
+{% if active_jobs %}
+    <ul>
+        {% for job in active_jobs %}
+            <li>
+                <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>There are no active jobs!</p>
+{% endif %}
+</br>
+<a href="{% url 'job-list' %}">Back to the full list</a>

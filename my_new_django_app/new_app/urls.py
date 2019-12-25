@@ -2,7 +2,6 @@ from django.urls import path
 from new_app import views
 
 urlpatterns = [
-    path('recent/', views.recent_blog_post),
     # path('posts/2003/', views.special_case_2003),
     # path('posts/<int:year>/', views.year_archive),
     # path('posts/<int:year>/<int:month>/', views.month_archive),
@@ -21,5 +20,6 @@ urlpatterns = [
     path('name_age/', views.name_age),
     path('current_time/', views.current_time),
     path('posts/<int:blog_post_id>/', views.blog_post_view),
-    path('add-blog-post/', views.add_blog_post)
+    path('add-blog-post/', views.add_blog_post),
+    path('recent/', views.recent_blog_post)
 ]
