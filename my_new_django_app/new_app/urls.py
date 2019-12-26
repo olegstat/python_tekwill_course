@@ -20,6 +20,7 @@ urlpatterns = [
     path('name_age/', views.name_age),
     path('current_time/', views.current_time),
     path('posts/<int:blog_post_id>/', views.blog_post_view),
-    path('add-blog-post/', views.add_blog_post),
-    path('recent/', views.recent_blog_post)
+    path('recent/', views.recent_blog_post, name='recent'),
+    path('edit-blog-post/<int:blog_post_id>/', views.edit_blog_post, name='edit-blog-post'),
+    path('add-blog-post/', views.add_blog_post, name='add-blog-post'),
 ]

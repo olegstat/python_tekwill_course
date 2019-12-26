@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest, FileResponse, JsonResponse, StreamingHttpResponse
 from datetime import date, datetime
 import random
@@ -127,5 +127,18 @@ def add_blog_post(request):
         form.save()
         return redirect(reverse(recent_blog_post))
     return render(request, 'add_blog_post.html', {'form': form})
+
+def edit_blog_post(request, blog_post_id):
+    blog_post = get_object_or_404(BlogPost, pk=blog_post_id)
+    edit_form = BlogPostForm(instance=blog_post)
+    if request.method == 'POST':
+        edit_form = BlogPostForm(request.POST, instance=blog_post)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect(reverse(blog_post_view, args=(blog_post_id, )))
+        else:
+            edit_form = BlogPostForm(instance=blog_post)
+    return render(request, 'edit_blog_post.html', {'form': edit_form, 'blog_post': blog_post})
+
 
 

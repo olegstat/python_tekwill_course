@@ -1,3 +1,4 @@
+<h1>Blog Post List:</h1>
 {% if recent_blog_post %}
     <ul>
         {% for blog_post in recent_blog_post %}
@@ -9,3 +10,4 @@
 {% else %}
     <p>There are no blog posts available </p>
 {% endif %}
+<a href="/add-blog-post/">Add new post</a>
