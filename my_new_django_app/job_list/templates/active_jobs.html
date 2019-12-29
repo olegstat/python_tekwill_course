@@ -1,14 +1,39 @@
-<h1>Active Jobs List</h1>
-{% if active_jobs %}
-    <ul>
-        {% for job in active_jobs %}
-            <li>
-                <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
-            </li>
-        {% endfor %}
-    </ul>
+{% if user.username %}
+    <h5>Current user: {{ user.username }}</h5>
+    <button onclick="window.location.href='{% url "logout" %}'">Log Out</button>
+    <h1>Active Jobs List</h1>
+    {% if active_jobs %}
+        <ul>
+            {% for job in active_jobs %}
+                <li>
+                    <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no active jobs!</p>
+    {% endif %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if active_jobs.has_previous %}
+                <button onclick=window.location.href="?page=1">&laquo; first</button>
+                <button  onclick=window.location.href="?page={{ active_jobs.previous_page_number }}">previous</button>
+                </br>
+            {% endif %}
+            {% if active_jobs.has_next %}
+                <button onclick=window.location.href="?page={{ active_jobs.next_page_number }}">next</button>
+                <button onclick=window.location.href="?page={{ active_jobs.paginator.num_pages }}">last &raquo;</button>
+                </br>
+            {% endif %}
+        <span class="current">
+            Page {{ active_jobs.number }} of {{ active_jobs.paginator.num_pages }}.
+        </span>
+        </span>
+    </div>
+
+    </br>
+    <button onclick="window.location.href = '{% url "job-list" %}'">Back to Job List</button>
 {% else %}
-    <p>There are no active jobs!</p>
+    <p>You are not authorised to see this page! Go to <a href="{% url 'login' %}">login</a> page</p>
 {% endif %}
-</br>
-<a href="{% url 'job-list' %}">Back to the full list</a>

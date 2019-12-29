@@ -1,13 +1,14 @@
 {% if user.username %}
     <h5>Current user: {{ user.username }}</h5>
     <button onclick="window.location.href='{% url "logout" %}'">Log Out</button>
+    <h1>Edit job: {{job_post.title}}</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type='submit' value='Create'>
-        </form>
-    </br>
-    <button onclick="window.location.href = '{% url "job-list" %}'">Back to Job List</button>
+        <input type='submit' value='Edit'>
+    </form>
+    <button onclick="window.location.href='{% url "job-detail" job_post.id %}'">Go Back</button>
+    <button onclick="window.location.href = '{% url 'job-list' %}'">Back to Job List</button>
 {% else %}
     <p>You are not authorised to see this page! Go to <a href="{% url 'login' %}">login</a> page</p>
 {% endif %}

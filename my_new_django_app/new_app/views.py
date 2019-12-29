@@ -10,12 +10,13 @@ from django.core.files.storage import FileSystemStorage
 from .models import BlogPost
 from django.urls import reverse
 from .forms import BlogPostForm
+from job_list import views
 
 # Create your views here.
 
 @csrf_exempt
 def my_first_view(request):
-    return HttpResponse("Hello world!")
+    return redirect(reverse(views.home))
 
 #ex_1
 def date_time(request):

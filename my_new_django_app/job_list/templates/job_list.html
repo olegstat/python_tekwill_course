@@ -1,16 +1,40 @@
-<h1>Full Job List</h1>
-{% if job_list %}
-    <ul>
-        {% for job in job_list %}
-            <li>
-                <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
-            </li>
-        {% endfor %}
-    </ul>
+{% if user.username %}
+    <h5>Current user: {{ user.username }}</h5>
+    <button onclick="window.location.href='{% url "logout" %}'">Log Out</button>
+    <h1>Full Job List</h1>
+    {% if job_list %}
+        <ul>
+            {% for job in job_list %}
+                <li>
+                    <a href="{% url 'job-detail' job.id %}">{{job.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no jobs available</p>
+    {% endif %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if job_list.has_previous %}
+                <button onclick=window.location.href="?page=1">&laquo; first</button>
+                <button  onclick=window.location.href="?page={{ job_list.previous_page_number }}">previous</button>
+                </br>
+            {% endif %}
+            {% if job_list.has_next %}
+                <button onclick=window.location.href="?page={{ job_list.next_page_number }}">next</button>
+                <button onclick=window.location.href="?page={{ job_list.paginator.num_pages }}">last &raquo;</button>
+                </br>
+            {% endif %}
+        <span class="current">
+            Page {{ job_list.number }} of {{ job_list.paginator.num_pages }}.
+        </span>
+        </span>
+    </div>
+
+    </br>
+    <button onclick=window.location.href="{% url 'active-jobs' %}">Show only active jobs</button>
+    <button onclick=window.location.href="{% url 'add-job' %}">Add a new job</button>
 {% else %}
-    <p>There are no jobs available</p>
+    <p>You are not authorised to see this page! Go to <a href="{% url 'login' %}">login</a> page</p>
 {% endif %}
-</br>
-<a href="{% url 'active-jobs' %}">Show only active jobs</a>
-</br>
-<a href="{% url 'add-job' %}">Add a new job</a>
