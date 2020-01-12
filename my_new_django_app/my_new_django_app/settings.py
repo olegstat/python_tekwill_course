@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'questions',
     'new_app',
-    'job_list'
+    'job_list',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_app'
 ]
 
 MIDDLEWARE = [
@@ -123,3 +126,15 @@ STATIC_URL = '/static/'
 
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'job-list'
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE SIZE": 10,
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication"
+    ],
+}
+
