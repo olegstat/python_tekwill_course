@@ -71,6 +71,7 @@ class DetailApiTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_put_not_auth(self):
+        
         response = self.client.put(self.url, {'name': 'Felix'}, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
