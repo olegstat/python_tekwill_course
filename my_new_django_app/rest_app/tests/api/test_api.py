@@ -65,16 +65,22 @@ class DetailApiTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
     def test_put_auth(self):
+<<<<<<< HEAD
         data = self.cat.name
         print(type(data))
         user = User.objects.create_superuser(username="admin", password="adminadmin", email="admin@example.com")
         self.client.force_login(user)
         response = self.client.put(self.url)
+=======
+        user = User.objects.create_superuser(username="admin", password="adminadmin", email="admin@example.com")
+        self.client.force_login(user)
+        response = self.client.put(self.url, {'name': 'Oscar'}, content_type='application/json')
+>>>>>>> af041a67c2a7bd7925d038c71e6e3d890ee9a817
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_put_not_auth(self):
-        data = {'name': 'Hi'}
-        response = self.client.put(self.url, data=data)
+        
+        response = self.client.put(self.url, {'name': 'Felix'}, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
     def test_del_auth(self):
