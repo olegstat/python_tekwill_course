@@ -2,7 +2,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.test import APIRequestFactory
+from rest_framework.test import APITestCase
 
 from rest_app.models import FancyCat
 
@@ -45,7 +45,7 @@ class ListApiTest(TestCase):
         response = self.client.post(self.url, data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
     
-class DetailApiTest(TestCase):
+class DetailApiTest(APITestCase):
     
     def setUp(self):
         self.cat = FancyCat.objects.create(name="Alex", age=2)
@@ -64,12 +64,13 @@ class DetailApiTest(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
-    # def test_put_auth(self):
-    #     data = {'name': 'Hi'}
-    #     user = User.objects.create_superuser(username="admin", password="adminadmin", email="admin@example.com")
-    #     self.client.force_login(user)
-    #     response = self.client.put(self.url, data='')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_put_auth(self):
+        data = self.cat.name
+        print(type(data))
+        user = User.objects.create_superuser(username="admin", password="adminadmin", email="admin@example.com")
+        self.client.force_login(user)
+        response = self.client.put(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_put_not_auth(self):
         data = {'name': 'Hi'}
