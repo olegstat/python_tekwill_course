@@ -14,6 +14,7 @@ BOT_NAME = 'cars_scraper'
 SPIDER_MODULES = ['cars_scraper.spiders']
 NEWSPIDER_MODULE = 'cars_scraper.spiders'
 
+FEED_EXPORT_ENCODING = 'utf-8'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'cars_scraper (+http://www.yourdomain.com)'
